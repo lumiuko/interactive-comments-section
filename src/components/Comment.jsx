@@ -74,7 +74,7 @@ export default function Comment(props) {
             <EditComment item={item} threadId={threadId} updateComment={updateComment} updatePanel={updatePanel} isReply={isReply} />
           ) : (
             <p>
-              {item.replyingTo && <strong className="text-moderate-blue">@{item.replyingTo} </strong>}
+              {item.replyingTo && <span className="text-moderate-blue font-medium">@{item.replyingTo} </span>}
               <span>{item.content}</span>
             </p>
           )}

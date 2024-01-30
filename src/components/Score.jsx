@@ -22,7 +22,7 @@ export default function Score({ item, isReply, threadId, voteComment }) {
   }
 
   return (
-    <div className="bg-very-light-gray rounded-[0.625rem] px-3 py-[0.625rem] flex items-center gap-4 md:flex-col md:gap-5 md:py-[0.875rem] md:w-[40px]">
+    <div className="bg-very-light-gray rounded-[0.625rem] px-3 py-3 flex items-center gap-4 md:flex-col md:py-[0.875rem] md:w-[40px]">
       <button
         aria-label="Upvote this comment"
         className="text-light-grayish-blue hover:text-moderate-blue transition-colors"
@@ -39,7 +39,7 @@ export default function Score({ item, isReply, threadId, voteComment }) {
       <p className="leading-5 text-moderate-blue">{item.score}</p>
       <button
         aria-label="Downvote this comment"
-        className="text-light-grayish-blue hover:text-moderate-blue transition-colors"
+        className="text-light-grayish-blue hover:text-moderate-blue transition-colors py-1"
         style={{ color: currentVote === -1 ? '#5357B6' : '' }}
         onClick={() => handleVoteClick(-1)}
       >

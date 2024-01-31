@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react'
+import dayjs from 'dayjs'
+
 import Comment from './components/Comment'
 import data from './data.json'
 import PostNewComment from './components/PostNewComment'
 import UserContextProvider from './context/UserContext'
 import { getCommentsWithAdded, getCommentsWithModified, getCommentsWithDeleted } from './utils/comments'
 import { wait } from './utils/common'
-import date from './utils/date'
 
 export default function App() {
   const [comments, setComments] = useState(data.comments)
@@ -17,7 +18,7 @@ export default function App() {
     const newComment = {
       id: lastId.current,
       content: message.replace(/^@\w+\s/, ''),
-      createdAt: date().unix(),
+      createdAt: dayjs().unix(),
       score: 0,
       user,
       ...(isReply ? { replyingTo: replyTo.user.username } : { replies: [] })

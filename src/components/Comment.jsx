@@ -5,7 +5,7 @@ import ActionButton from './UI/ActionButton'
 import EditComment from './EditComment'
 import Modal from './UI/Modal'
 import Score from './Score'
-import date from '../utils/date'
+import dayjs from 'dayjs'
 
 export default function Comment(props) {
   const { item, isReply = false, sendComment, updateComment, deleteComment, voteComment, threadId } = props
@@ -54,7 +54,7 @@ export default function Comment(props) {
         <div className="flex flex-col gap-4 md:flex-grow">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <picture>
+              <picture className="flex-shrink-0">
                 <source type="image/webp" srcSet={item.user.image.webp} />
                 <img src={item.user.image.png} className="size-[32px] rounded-full object-cover" alt={`${item.user.username} avatar`} />
               </picture>
@@ -66,7 +66,7 @@ export default function Comment(props) {
                   </div>
                 )}
               </div>
-              <p>{date.unix(item.createdAt).fromNow()}</p>
+              <p>{dayjs.unix(item.createdAt).fromNow()}</p>
             </div>
             <div className="hidden md:flex items-center gap-6 font-medium">{actionButtons}</div>
           </div>

@@ -1,41 +1,18 @@
-import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-
 import Textarea from './UI/Textarea'
+import useCommentForm from '../hooks/useCommentForm'
 
 export default function EditComment({ item, updateComment, updatePanel, threadId, isReply }) {
-  const {
-    register,
-    handleSubmit,
-    setFocus,
-    reset,
-    formState: { errors }
-  } = useForm({
-    defaultValues: {
-      message: isReply ? `@${item.replyingTo} ${item.content}` : item.content
-    }
+  const { register, handleSubmit, borderColor } = useCommentForm({
+    isEdit: true,
+    onSubmit: updateComment,
+    item,
+    isReply,
+    updatePanel,
+    threadId
   })
 
-  useEffect(() => {
-    setFocus('message')
-  }, [setFocus])
-
-  function onSubmit({ message }) {
-    const commentData = {
-      id: item.id,
-      message,
-      threadId
-    }
-
-    updateComment(isReply, commentData)
-    updatePanel('edit', false)
-    reset()
-  }
-
-  const borderColor = errors.message ? '#ED6368' : ''
-
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <Textarea
         style={{ minHeight: '8rem', borderColor, outlineColor: borderColor }}
         {...register('message', { required: true, pattern: isReply ? /@(\w+) (.+)/ : /.+/ })}

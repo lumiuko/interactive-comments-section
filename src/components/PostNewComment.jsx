@@ -1,49 +1,22 @@
-import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-
 import { useUser } from '../context/UserContext'
 import Textarea from './UI/Textarea'
+import useCommentForm from '../hooks/useCommentForm'
 
 export default function PostNewComment({ isReply = false, sendComment, replyTo, threadId, updatePanel }) {
   const { currentUser } = useUser()
 
-  const {
-    register,
-    handleSubmit,
-    setFocus,
-    reset,
-    formState: { errors }
-  } = useForm({
-    defaultValues: {
-      message: isReply ? `@${replyTo.user.username} ` : ''
-    }
+  const { register, handleSubmit, borderColor } = useCommentForm({
+    isEdit: false,
+    onSubmit: sendComment,
+    isReply,
+    updatePanel,
+    threadId,
+    replyTo
   })
-
-  function onSubmit({ message }) {
-    const commentData = {
-      user: currentUser,
-      message,
-      ...(isReply && { replyTo, threadId })
-    }
-
-    sendComment(isReply, commentData)
-    reset()
-
-    if (isReply) {
-      updatePanel('reply', false)
-    }
-  }
-
-  useEffect(() => {
-    if (!isReply) return
-    setFocus('message')
-  }, [isReply, setFocus])
-
-  const borderColor = errors.message ? '#ED6368' : ''
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit}
       className="bg-white rounded-lg p-4 grid grid-cols-2 gap-4 items-center md:p-6 md:flex md:items-start"
       style={{ marginTop: isReply ? '0.5rem' : '' }}
     >

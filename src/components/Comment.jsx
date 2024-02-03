@@ -35,11 +35,13 @@ export default function Comment(props) {
 
   const actionButtons = (
     <>
-      {isAuthor && <ActionButton icon="/images/icon-delete.svg" updatePanel={updatePanel} text="Delete" color="#ED6368" />}
+      {isAuthor && (
+        <ActionButton icon="/images/icon-delete.svg" openedPanels={openedPanels} updatePanel={updatePanel} text="Delete" color="#ED6368" />
+      )}
       {isAuthor ? (
-        <ActionButton text="Edit" icon="/images/icon-edit.svg" updatePanel={updatePanel} disabled={openedPanels.edit} />
+        <ActionButton text="Edit" icon="/images/icon-edit.svg" openedPanels={openedPanels} updatePanel={updatePanel} />
       ) : (
-        <ActionButton text="Reply" icon="/images/icon-reply.svg" updatePanel={updatePanel} disabled={openedPanels.reply} />
+        <ActionButton text="Reply" icon="/images/icon-reply.svg" openedPanels={openedPanels} updatePanel={updatePanel} />
       )}
     </>
   )
